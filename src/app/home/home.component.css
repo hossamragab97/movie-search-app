@@ -1,0 +1,22 @@
+.noData {
+    height: 80Vh;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.textNoData {
+    width: 100%;
+    text-align: center
+}
+
+.sticky-toolbar {
+    position: sticky !important;
+    z-index: 9999;
+    top: 0
+}
+
+.m-t15{
+    margin-top: 15px;
+}

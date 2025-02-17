@@ -1,0 +1,46 @@
+<!-- header  -->
+<p-toolbar class="sticky-toolbar">
+    <ng-template #start>
+        <h3>Search Your Movie Here !</h3>
+    </ng-template>
+    <ng-template #center>
+        <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input type="text" [pAutoFocus]="true"  [formControl]="searchControl" [(ngModel)]="searchText" pInputText placeholder="Search..." />
+        </p-iconfield>
+    </ng-template>
+    <ng-template #end>
+        <p-togglebutton [(ngModel)]="isLight" class="ng-invalid ng-dirty" onLabel="Dark Mode" onIcon="pi pi-moon"
+            offLabel="Light Mode" offIcon="pi pi-sun" styleClass="w-full sm:w-40" (click)="toggleDarkMode()" />
+    </ng-template>
+</p-toolbar>
+
+<div class="grid" id="movies">
+    <div class="md:col-4 m-t15" *ngFor="let movie of movies">
+        <p-card>
+            <ng-template #header>
+                <p-image class="w-full w-100" width="100%" height="350px"
+                    [src]="movie.poster_path?pathImg + movie.poster_path : noImg"
+                    alt="{{ movie.title }}" [preview]="true" [style]="{ width:'100%'}" />
+            </ng-template>
+            <ng-template #title>{{ movie.title }} </ng-template>
+            <ng-template #subtitle>
+                <p-scrollpanel [style]="{ width: '100%', height: '100px' }">
+                    <p>
+                        {{ movie.overview }}
+                    </p>
+                </p-scrollpanel>
+            </ng-template>
+            <ng-template #footer>
+                   <p-knob  [size]="60" valueTemplate="{{movie.vote_average}} ★" [(ngModel)]="movie.vote_average" [min]="0" [max]="10" readonly="true" />
+            </ng-template>
+        </p-card>
+    </div>
+  <div class="col-12 noData" *ngIf="movies.length == 0">
+    <h3 class="textNoData">No movie available ! </h3>
+  </div>
+</div> 
+
+<p-paginator *ngIf="totalRecords > 0" (onPageChange)="onPageChange($event)" [rows]="20" [totalRecords]="totalRecords" />
+
+<p-scrolltop threshold="10" icon="pi pi-arrow-up" />
