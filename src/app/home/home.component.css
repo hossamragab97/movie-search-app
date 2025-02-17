@@ -17,6 +17,13 @@
     top: 0
 }
 
-.m-t15{
-    margin-top: 15px;
+.m-t20{
+    margin-top: 20px;
 }
+
+.one-line-ellipsis {
+    white-space: nowrap;       
+    overflow: hidden;         
+    text-overflow: ellipsis;  
+    display: block;         
+  }

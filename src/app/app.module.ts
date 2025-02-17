@@ -36,13 +36,14 @@ import { ImageModule } from 'primeng/image';
 import { PaginatorModule } from 'primeng/paginator';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
   ],
   imports: [
+    ProgressSpinnerModule,
     ReactiveFormsModule,
     PaginatorModule,
     ScrollPanelModule,

@@ -12,7 +12,7 @@ import { FormControl } from '@angular/forms';
 export class HomeComponent {
   apiKey = '95a9fcd369b78a1647a4e494b721a944'
   baseUrl = 'https://api.themoviedb.org/3/search/movie'
-  pathImg ='https://image.tmdb.org/t/p/w500'
+  pathImg = 'https://image.tmdb.org/t/p/w500'
   noImg = 'https://media.istockphoto.com/id/1055079680/vector/black-linear-photo-camera-like-no-image-available.jpg?s=612x612&w=0&k=20&c=P1DebpeMIAtXj_ZbVsKVvg-duuL0v9DlrOZUvPG6UJk='
 
   isLight = true
@@ -20,6 +20,7 @@ export class HomeComponent {
   searchText: string = '';
   movies: any = [];
   totalRecords = 0
+  isSearch = false
 
   constructor(private http: HttpClient) { }
 
@@ -27,11 +28,11 @@ export class HomeComponent {
 
     this.searchControl.valueChanges
       .pipe(
-        debounceTime(500), 
+        debounceTime(500),
         distinctUntilChanged()
       )
       .subscribe(value => {
-        this.fetchMovies(value , 1);
+        this.fetchMovies(value, 1);
       });
 
 
@@ -46,7 +47,7 @@ export class HomeComponent {
     }
 
 
-    this.searchText = this.getRandomQuery(); 
+    this.searchText = this.getRandomQuery();
     this.fetchMovies(this.searchText, 1);
 
   }
@@ -58,6 +59,7 @@ export class HomeComponent {
   }
 
   fetchMovies(query: string, page: number) {
+    this.isSearch = true
     this.http.get(`${this.baseUrl}?api_key=${this.apiKey}&query=${query}&page=${page}`)
       .subscribe((response: any) => {
         this.movies = response.results;
@@ -66,6 +68,7 @@ export class HomeComponent {
         });
         this.totalRecords = response.total_results
         document.getElementById('movies')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        this.isSearch = false
       });
   }
 
